@@ -355,3 +355,5 @@ The standalone `acpx` and `cursor` rows inspect the default binary names.
 The `gate validation` line is the decisive result: when the configured global runner is unavailable, doctor fails because a complete gate cannot validate without it.
 See the [Global Config Reference](/no-mistakes/reference/global-config/) for ACP availability and probing behavior.
 Every new validation run resolves its effective agent again after applying any trusted repository-level override.
+
+<!-- scratch tweak for no-mistakes axi TUI pane demo -->
