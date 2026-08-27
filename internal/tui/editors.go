@@ -322,8 +322,8 @@ func (m Model) renderInstructionEditor(width int) string {
 	}
 	m.editor.instruction.SetWidth(contentWidth)
 
-	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	title := titleStyle.Render(fmt.Sprintf("Instruction for %s", m.editor.findingID))
 
 	var body strings.Builder
@@ -350,10 +350,10 @@ func (m Model) renderAddFindingEditor(width int) string {
 	m.editor.addDesc.SetWidth(contentWidth)
 	m.editor.addInstr.SetWidth(contentWidth)
 
-	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
-	focusStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
-	labelStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
+	focusStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
+	labelStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	label := func(field addFindingField, text string) string {
 		if m.editor.addFocus == field {
@@ -372,7 +372,7 @@ func (m Model) renderAddFindingEditor(width int) string {
 	body.WriteString(m.editor.addInstr.View())
 	body.WriteString("\n\n")
 	if m.editor.errorMsg != "" {
-		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 		body.WriteString(errStyle.Render("! " + m.editor.errorMsg))
 		body.WriteString("\n")
 	}

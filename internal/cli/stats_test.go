@@ -140,16 +140,16 @@ func TestStatsDashboardCentersBannerAsBlock(t *testing.T) {
 }
 
 func TestStatsDashboardStylesBannerAndProgressBars(t *testing.T) {
-	lipgloss.SetColorProfile(termenv.ANSI)
+	lipgloss.SetColorProfile(termenv.TrueColor)
 	out := renderStatsDashboard(&db.Stats{TotalRuns: 1, RescueRuns: 1, ReportedFindings: 2, FixedFindings: 1})
 	if !strings.Contains(out, sCyan.Render("_  _ ____    _  _ _ ____ ___ ____ _  _ ____ ____")) {
 		t.Fatalf("stats banner should be cyan:\n%s", out)
 	}
-	if !strings.Contains(out, "\x1b[32m") {
-		t.Fatalf("stats progress bars should use green filled segments:\n%s", out)
+	if !strings.Contains(out, "\x1b[38;2;169;182;101m") {
+		t.Fatalf("stats progress bars should use gruvbox green (#a9b665) filled segments:\n%s", out)
 	}
-	if !strings.Contains(out, "\x1b[90m") {
-		t.Fatalf("stats progress bars should use dim empty segments:\n%s", out)
+	if !strings.Contains(out, "\x1b[38;2;50;48;47m") {
+		t.Fatalf("stats progress bars should use gruvbox bright black (#32302f) empty segments:\n%s", out)
 	}
 }
 

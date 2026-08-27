@@ -148,7 +148,7 @@ func TestRenderFindings_FocusedFileRefNotDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f1 focused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Focused file ref should NOT be dim-styled.
 	if strings.Contains(content, dimStyle.Render("src/handler.go:42")) {
@@ -172,7 +172,7 @@ func TestRenderFindings_UnfocusedFileRefDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f2 unfocused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Unfocused file ref should be dim-styled.
 	if !strings.Contains(content, dimStyle.Render("src/config.go:17")) {
@@ -189,7 +189,7 @@ func TestRenderFindings_FocusChangesFileRefStyle(t *testing.T) {
 	],"summary":"2 issues"}`
 
 	selected := map[string]bool{"f1": true, "f2": true}
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Cursor at 0: f1 focused (non-dim ref), f2 unfocused (dim ref).
 	content0, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
@@ -222,14 +222,14 @@ func TestRenderFindings_FocusedSeverityIconNotDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f1 focused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Focused severity icon should NOT be dim-styled.
 	if strings.Contains(content, dimStyle.Render("E")) {
 		t.Error("focused finding severity icon should not be dim-styled")
 	}
 	// The colored icon should still be present.
-	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	if !strings.Contains(content, errStyle.Render("E")) {
 		t.Error("focused finding severity icon should be styled with its severity color")
 	}
@@ -247,14 +247,14 @@ func TestRenderFindings_UnfocusedSeverityIconDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f2 unfocused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Unfocused severity icon (W for warning) should be dim-styled.
 	if !strings.Contains(content, dimStyle.Render("W")) {
 		t.Error("unfocused finding severity icon should be dim-styled")
 	}
 	// The colored warning icon should NOT appear for unfocused findings.
-	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 	if strings.Contains(content, warnStyle.Render("W")) {
 		t.Error("unfocused finding severity icon should not use its severity color")
 	}
@@ -269,9 +269,9 @@ func TestRenderFindings_FocusChangesSeverityIconStyle(t *testing.T) {
 	],"summary":"2 issues"}`
 
 	selected := map[string]bool{"f1": true, "f2": true}
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
-	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
-	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
+	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
+	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 
 	// Cursor at 0: f1 focused (colored E), f2 unfocused (dim W).
 	content0, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
@@ -298,7 +298,7 @@ func TestStyleLogLine_PassLineGreen(t *testing.T) {
 	lipgloss.SetColorProfile(termenv.ANSI)
 	line := "PASS: TestFoo (0.3s)"
 	styled := styleLogLine(line)
-	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	expected := greenStyle.Render(line)
 	if styled != expected {
 		t.Errorf("PASS line should be green-styled, got %q", styled)
@@ -309,7 +309,7 @@ func TestStyleLogLine_FailLineRed(t *testing.T) {
 	lipgloss.SetColorProfile(termenv.ANSI)
 	line := "FAIL: TestBar (0.1s)"
 	styled := styleLogLine(line)
-	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	expected := redStyle.Render(line)
 	if styled != expected {
 		t.Errorf("FAIL line should be red-styled, got %q", styled)
@@ -320,7 +320,7 @@ func TestStyleLogLine_DefaultLineDim(t *testing.T) {
 	lipgloss.SetColorProfile(termenv.ANSI)
 	line := "running go test ./..."
 	styled := styleLogLine(line)
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	expected := dimStyle.Render(line)
 	if styled != expected {
 		t.Errorf("default line should be dim-styled, got %q", styled)

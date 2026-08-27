@@ -224,7 +224,7 @@ func TestRenderFindings_FocusedDescriptionNotDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f1 focused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Focused description should NOT be dim-styled.
 	if strings.Contains(content, dimStyle.Render("        focused text")) {
@@ -247,7 +247,7 @@ func TestRenderFindings_UnfocusedDescriptionDim(t *testing.T) {
 	selected := map[string]bool{"f1": true, "f2": true}
 	content, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0) // cursor=0, f2 unfocused
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	// wrapIndentedText produces "        second issue" (8-char indent + text).
 	dimSecond := dimStyle.Render("        second issue")
 
@@ -266,7 +266,7 @@ func TestRenderFindings_FocusChangesDescriptionStyle(t *testing.T) {
 	],"summary":"2 issues"}`
 
 	selected := map[string]bool{"f1": true, "f2": true}
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Cursor at 0: f1 focused, f2 unfocused (dim).
 	content0, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
@@ -297,7 +297,7 @@ func TestRenderDiff_LineNumbersStyledDim(t *testing.T) {
 `
 	got := renderDiff(raw, 80, 0, 0, "", "")
 	// Line number "1" should be styled dim (bright black).
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	styledOne := dimStyle.Render("1 ")
 	if !strings.Contains(got, styledOne) {
 		t.Error("expected line numbers to be styled dim (bright black)")

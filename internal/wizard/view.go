@@ -8,18 +8,18 @@ import (
 	"github.com/muesli/termenv"
 )
 
-// ANSI-only palette, matching internal/tui/theme.go.
+// Gruvbox Material Dark (soft) truecolor palette, matching internal/tui/theme.go.
 const (
-	ansiRed         = "1"
-	ansiGreen       = "2"
-	ansiYellow      = "3"
-	ansiBlue        = "4"
-	ansiCyan        = "6"
-	ansiBrightBlack = "8"
+	gruvboxRed         = "#ea6962"
+	gruvboxGreen       = "#a9b665"
+	gruvboxYellow      = "#d8a657"
+	gruvboxBlue        = "#7daea3"
+	gruvboxCyan        = "#89b482"
+	gruvboxBrightBlack = "#32302f"
 )
 
 func init() {
-	lipgloss.SetColorProfile(termenv.ANSI)
+	lipgloss.SetColorProfile(termenv.TrueColor)
 }
 
 var spinnerFrames = []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
@@ -238,14 +238,16 @@ func stepIconAndStyle(s *step, spinnerFrame int) (string, lipgloss.Style) {
 // Style helpers — kept as functions so tests can swap the color profile.
 
 func dimStyle() lipgloss.Style {
-	return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 }
-func greenStyle() lipgloss.Style  { return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen)) }
-func redStyle() lipgloss.Style    { return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed)) }
-func yellowStyle() lipgloss.Style { return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow)) }
-func blueStyle() lipgloss.Style   { return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue)) }
-func cyanStyle() lipgloss.Style   { return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiCyan)) }
-func boldStyle() lipgloss.Style   { return lipgloss.NewStyle().Bold(true) }
+func greenStyle() lipgloss.Style { return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen)) }
+func redStyle() lipgloss.Style   { return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed)) }
+func yellowStyle() lipgloss.Style {
+	return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
+}
+func blueStyle() lipgloss.Style { return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue)) }
+func cyanStyle() lipgloss.Style { return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxCyan)) }
+func boldStyle() lipgloss.Style { return lipgloss.NewStyle().Bold(true) }
 
 // renderBox mirrors internal/tui/box.go: a rounded-border box with a cyan
 // bold title embedded in the top border.
