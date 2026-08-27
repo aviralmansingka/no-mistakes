@@ -189,11 +189,11 @@ func computeDiffLineNumbers(lines []diffLine) []int {
 func diffLineStyle(t diffLineType) lipgloss.Style {
 	switch t {
 	case diffLineAddition:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	case diffLineDeletion:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	case diffLineHunkHeader:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiCyan))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxCyan))
 	case diffLineFileHeader:
 		return lipgloss.NewStyle().Bold(true)
 	default:
@@ -222,8 +222,8 @@ func renderDiff(raw string, width, viewHeight, offset int, stepLabel string, fin
 	// Stats header.
 	files, adds, dels := diffStats(lines)
 	statsStyle := lipgloss.NewStyle().Bold(true)
-	addStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
-	delStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	addStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
+	delStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	fileWord := "files"
 	if files == 1 {
 		fileWord = "file"
@@ -237,7 +237,7 @@ func renderDiff(raw string, width, viewHeight, offset int, stepLabel string, fin
 
 	// Finding context line showing which finding the user is looking at.
 	if findingContext != "" {
-		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 		ctx := findingContext
 		contentWidth := boxWidth - 4
 		if contentWidth > 0 && lipgloss.Width(ctx) > contentWidth {
@@ -288,7 +288,7 @@ func renderDiff(raw string, width, viewHeight, offset int, stepLabel string, fin
 	if gutterWidth < 1 {
 		gutterWidth = 1
 	}
-	dimGutterStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimGutterStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Render visible lines, truncating to fit inside the box.
 	// Insert blank line before file headers (except the first in the diff)

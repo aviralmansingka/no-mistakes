@@ -265,15 +265,15 @@ func TestRenderFindings_WrapsLongDescriptions(t *testing.T) {
 	}
 }
 
-func TestConfigureTUIColors_UsesANSIProfile(t *testing.T) {
+func TestConfigureTUIColors_UsesTrueColorProfile(t *testing.T) {
 	prev := lipgloss.ColorProfile()
 	defer lipgloss.SetColorProfile(prev)
 
-	lipgloss.SetColorProfile(termenv.TrueColor)
+	lipgloss.SetColorProfile(termenv.ANSI)
 	configureTUIColors()
 
-	if lipgloss.ColorProfile() != termenv.ANSI {
-		t.Fatalf("ColorProfile = %v, want %v", lipgloss.ColorProfile(), termenv.ANSI)
+	if lipgloss.ColorProfile() != termenv.TrueColor {
+		t.Fatalf("ColorProfile = %v, want %v", lipgloss.ColorProfile(), termenv.TrueColor)
 	}
 }
 

@@ -5,13 +5,14 @@ import (
 	"github.com/kunchenguid/no-mistakes/internal/types"
 )
 
+// Gruvbox Material Dark (soft) truecolor palette, matching internal/tui/theme.go.
 var (
-	sRed    = lipgloss.NewStyle().Foreground(lipgloss.Color("1"))
-	sGreen  = lipgloss.NewStyle().Foreground(lipgloss.Color("2"))
-	sYellow = lipgloss.NewStyle().Foreground(lipgloss.Color("3"))
-	sBlue   = lipgloss.NewStyle().Foreground(lipgloss.Color("4"))
-	sCyan   = lipgloss.NewStyle().Foreground(lipgloss.Color("6"))
-	sDim    = lipgloss.NewStyle().Foreground(lipgloss.Color("8"))
+	sRed    = lipgloss.NewStyle().Foreground(lipgloss.Color("#ea6962"))
+	sGreen  = lipgloss.NewStyle().Foreground(lipgloss.Color("#a9b665"))
+	sYellow = lipgloss.NewStyle().Foreground(lipgloss.Color("#d8a657"))
+	sBlue   = lipgloss.NewStyle().Foreground(lipgloss.Color("#7daea3"))
+	sCyan   = lipgloss.NewStyle().Foreground(lipgloss.Color("#89b482"))
+	sDim    = lipgloss.NewStyle().Foreground(lipgloss.Color("#32302f"))
 	sBold   = lipgloss.NewStyle().Bold(true)
 )
 

@@ -75,7 +75,7 @@ func renderCIViewWithSelection(run *ipc.RunInfo, steps []ipc.StepResultInfo, fin
 	}
 	contentWidth := boxWidth - 4 // account for box border + padding
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	if run != nil && run.PRURL != nil && *run.PRURL != "" {
 		prText, _ := cutText(shortPRLabel(*run.PRURL), contentWidth)
 		b.WriteString(dimStyle.Render(prText) + "\n")
@@ -93,15 +93,15 @@ func renderCIViewWithSelection(run *ipc.RunInfo, steps []ipc.StepResultInfo, fin
 	switch status {
 	case types.StepStatusRunning:
 		if activity.AutoFixing {
-			style := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue))
+			style := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue))
 			b.WriteString(style.Render("\u2699 Auto-fixing CI failures...") + "\n")
 		} else if activity.Ready {
-			style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiGreen))
+			style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxGreen))
 			b.WriteString(style.Render("✓ Checks passed") + "\n")
-			dim := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+			dim := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 			b.WriteString(dim.Render("still monitoring until merged or closed") + "\n")
 		} else {
-			style := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+			style := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 			b.WriteString(style.Render("◉ Monitoring CI checks...") + "\n")
 		}
 	}

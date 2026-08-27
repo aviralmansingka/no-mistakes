@@ -48,17 +48,17 @@ func stepStatusIndicator(status types.StepStatus, spinnerFrame int) string {
 func stepStatusStyle(status types.StepStatus) lipgloss.Style {
 	switch status {
 	case types.StepStatusRunning, types.StepStatusFixing:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue))
 	case types.StepStatusAwaitingApproval, types.StepStatusFixReview:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 	case types.StepStatusCompleted:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	case types.StepStatusSkipped:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	case types.StepStatusFailed:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	default:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	}
 }
 
@@ -67,15 +67,15 @@ func runStatusStyled(status types.RunStatus) string {
 	var style lipgloss.Style
 	switch status {
 	case types.RunRunning:
-		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiBlue))
+		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxBlue))
 	case types.RunCompleted:
-		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiGreen))
+		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxGreen))
 	case types.RunFailed, types.RunCancelled:
-		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiRed))
+		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxRed))
 	case types.RunCIMonitorInterrupted:
-		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiYellow))
+		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxYellow))
 	default:
-		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiBrightBlack))
+		style = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxBrightBlack))
 	}
 	return style.Render(string(status))
 }
@@ -131,7 +131,7 @@ func renderPipelineView(run *ipc.RunInfo, steps []ipc.StepResultInfo, width int,
 	var b strings.Builder
 
 	// Header keeps the default view focused on branch and run status only.
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	status := runStatusStyled(run.Status)
 	branchWidth := contentWidth - lipgloss.Width(status) - 1
 	if branchWidth < 1 {
@@ -190,7 +190,7 @@ func renderPipelineView(run *ipc.RunInfo, steps []ipc.StepResultInfo, width int,
 
 	// Run error, truncated to fit inside the box.
 	if run.Error != nil {
-		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 		errText := "Error: " + *run.Error
 		errText, _ = cutText(errText, contentWidth)
 		b.WriteString("\n" + errStyle.Render(errText) + "\n")
@@ -214,14 +214,14 @@ func renderActionBar(steps []ipc.StepResultInfo, showSelectionActions bool, allo
 	step := awaitingStep(steps)
 	if step == nil {
 		if retryAvailable {
-			promptStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiYellow))
+			promptStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxYellow))
 			return promptStyle.Render("Review state unavailable:") + "\n" + renderApprovalActions(false, false, false, 0, 0, confirmAbort, false, false, true)
 		}
 		return ""
 	}
 
 	var b strings.Builder
-	promptStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiYellow))
+	promptStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxYellow))
 	prompt := fmt.Sprintf("%s awaiting action:", stepLabel(step.StepName))
 	if step.Status == types.StepStatusFixReview {
 		prompt = fmt.Sprintf("%s - review fix:", stepLabel(step.StepName))
@@ -242,11 +242,11 @@ func renderApprovalActions(showSelectionActions bool, allowFix bool, showDiff bo
 
 	abortLabel := "abort"
 	if confirmAbort {
-		warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 		abortLabel = warnStyle.Render("x again to abort")
 	}
 	if !approvalReady {
-		status := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack)).Render("loading fix diff...")
+		status := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack)).Render("loading fix diff...")
 		if retryAvailable {
 			status = renderAction("r", "retry")
 		}
@@ -273,11 +273,11 @@ func renderApprovalActions(showSelectionActions bool, allowFix bool, showDiff bo
 	result := " " + strings.Join(primary, "  ")
 
 	if showSelectionActions {
-		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 		selection := []string{renderAction("\u2423", "toggle"), renderAction("e", "edit"), renderAction("+", "add"), renderAction("A", "all"), renderAction("N", "none")}
 		result += " " + dimStyle.Render("│") + " " + strings.Join(selection, "  ")
 	} else if showDiff {
-		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 		nav := []string{renderAction("n", "next"), renderAction("p", "prev")}
 		result += " " + dimStyle.Render("│") + " " + strings.Join(nav, "  ")
 	}
@@ -301,13 +301,13 @@ func renderOutcomeBanner(run *ipc.RunInfo, steps []ipc.StepResultInfo) string {
 		}
 	}
 	if totalMS > 0 {
-		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 		elapsed = "  " + dimStyle.Render(formatDuration(totalMS))
 	}
 
 	switch run.Status {
 	case types.RunCompleted:
-		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiGreen))
+		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxGreen))
 		return style.Render("✓ Pipeline passed") + elapsed
 	case types.RunFailed:
 		// Find which step failed.
@@ -318,16 +318,16 @@ func renderOutcomeBanner(run *ipc.RunInfo, steps []ipc.StepResultInfo) string {
 				break
 			}
 		}
-		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiRed))
+		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxRed))
 		if failedLabel != "" {
 			return style.Render("✗ "+failedLabel+" failed") + elapsed
 		}
 		return style.Render("✗ Pipeline failed") + elapsed
 	case types.RunCancelled:
-		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiRed))
+		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxRed))
 		return style.Render("✗ Pipeline cancelled") + elapsed
 	case types.RunCIMonitorInterrupted:
-		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiYellow))
+		style := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxYellow))
 		return style.Render("CI monitor interrupted") + elapsed
 	default:
 		return ""
@@ -343,7 +343,7 @@ type helpEntry struct {
 // renderHelpOverlay renders a help box showing keybindings relevant to the current state.
 func renderHelpOverlay(width int, run *ipc.RunInfo, hasAwaitingStep bool, showDiff bool, hasDiff bool, done bool, yolo bool) string {
 	boldKey := lipgloss.NewStyle().Bold(true)
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	contentWidth := width - 4
 	if contentWidth < 1 {
 		contentWidth = 1
@@ -374,7 +374,7 @@ func renderHelpOverlay(width int, run *ipc.RunInfo, hasAwaitingStep bool, showDi
 
 	section := func(title string, entries []helpEntry) string {
 		var b strings.Builder
-		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan)).Render(title))
+		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan)).Render(title))
 		b.WriteString("\n")
 		b.WriteString(renderEntries(entries))
 		return b.String()

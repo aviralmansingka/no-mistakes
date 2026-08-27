@@ -52,7 +52,7 @@ func (m Model) View() string {
 	retryAvailable := m.reviewRetryAvailable()
 	actionBar := renderActionBar(m.steps, showSelectionActions, allowFix, m.showDiff, selectedCount, totalCount, m.confirmAbort, hasDiff, approvalReady, retryAvailable)
 	if stepAwaiting != nil && m.stepDiffTruncated[stepAwaiting.StepName] {
-		warning := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiYellow)).
+		warning := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxYellow)).
 			Render("⚠ Diff truncated at 512 KiB. Approval applies to the full diff.")
 		actionBar = warning + "\n" + actionBar
 	}
@@ -305,7 +305,7 @@ func renderFindingsBoxForHeight(raw string, width int, cursor int, selected map[
 	}
 
 	// Build styled title: "Findings - E 2 W 2 I 2" with colorized severity counts.
-	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
 	styledTitle := titleStyle.Render("Findings")
 	counts := map[string]int{}
 	for _, item := range f.Items {
@@ -373,7 +373,7 @@ func renderErrorBox(err error, width int) string {
 		boxWidth = 80
 	}
 	contentWidth := boxWidth - 4 // 2 border + 2 padding
-	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	errStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	errLines := strings.Split(err.Error(), "\n")
 	var errContent strings.Builder
 	for i, line := range errLines {
@@ -387,8 +387,8 @@ func renderErrorBox(err error, width int) string {
 }
 
 func renderFooter(done bool, showHelp bool, confirmAbort bool, yolo bool, run *ipc.RunInfo, latestVersion string, width int) string {
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
-	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
+	warnStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 	boldKey := lipgloss.NewStyle().Bold(true)
 	qLabel := "detach"
 	if done {

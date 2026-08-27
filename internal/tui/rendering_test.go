@@ -521,7 +521,7 @@ func TestRenderPipelineView_StatusSuffixDim(t *testing.T) {
 	// The suffix text "- awaiting approval" should be styled dim (contain ANSI codes).
 	// When stripped, the text should be present; in the raw output, it should be wrapped
 	// in dim styling, not appear as plain unstyled text.
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	styledSuffix := dimStyle.Render("- awaiting approval")
 
 	if !strings.Contains(got, styledSuffix) {
@@ -538,7 +538,7 @@ func TestRenderPipelineView_FailedErrorDim(t *testing.T) {
 
 	got := renderPipelineView(run, run.Steps, 80, 0, 40)
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	styledSuffix := dimStyle.Render("- " + errMsg)
 
 	if !strings.Contains(got, styledSuffix) {
@@ -554,7 +554,7 @@ func TestRenderFindings_CursorStyledBlue(t *testing.T) {
 
 	got, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
 
-	blueStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue))
+	blueStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue))
 	styledCursor := blueStyle.Render(">")
 
 	if !strings.Contains(got, styledCursor) {
@@ -570,7 +570,7 @@ func TestRenderFindings_CheckboxSelectedGreen(t *testing.T) {
 
 	got, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
 
-	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	styledCheckbox := greenStyle.Render("[x]")
 
 	if !strings.Contains(got, styledCheckbox) {
@@ -586,7 +586,7 @@ func TestRenderFindings_CheckboxUnselectedDim(t *testing.T) {
 
 	got, _ := renderFindingsWithSelection(raw, 80, 0, selected, 0)
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	styledCheckbox := dimStyle.Render("[ ]")
 
 	if !strings.Contains(got, styledCheckbox) {
@@ -648,7 +648,7 @@ func TestLogTail_PassLinesStyledGreen(t *testing.T) {
 	view := m.View()
 
 	// PASS lines should be styled green (ANSI color 2), not just dim.
-	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	greenPass := greenStyle.Render("PASS: TestFoo (0.3s)")
 	if !strings.Contains(view, greenPass) {
 		t.Error("expected PASS log line to be styled green, not dim")
@@ -666,7 +666,7 @@ func TestLogTail_FailLinesStyledRed(t *testing.T) {
 	view := m.View()
 
 	// FAIL lines should be styled red (ANSI color 1), not just dim.
-	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	redFail := redStyle.Render("FAIL: TestBar (0.1s)")
 	if !strings.Contains(view, redFail) {
 		t.Error("expected FAIL log line to be styled red, not dim")
@@ -684,7 +684,7 @@ func TestLogTail_RegularLineStaysDim(t *testing.T) {
 	view := m.View()
 
 	// Regular log lines should remain dim (bright black).
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	dimLine := dimStyle.Render("running go test ./...")
 	if !strings.Contains(view, dimLine) {
 		t.Error("expected regular log line to remain dim-styled")

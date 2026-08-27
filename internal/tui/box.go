@@ -9,14 +9,14 @@ import (
 // renderBox renders content inside a rounded-border box with a styled title
 // embedded in the top border, per DESIGN.md Boxed Sections spec.
 func renderBox(title, content string, width int) string {
-	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
 	return renderBoxWithStyledTitle(titleStyle.Render(title), content, width, "")
 }
 
 // renderBoxWithFooter renders a box with an optional hint embedded in the bottom border.
 // Per DESIGN.md Diff View: ╰──── ↓ 23 more lines (j/k) ─────────────╯
 func renderBoxWithFooter(title, content string, width int, footer string) string {
-	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiCyan))
+	titleStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxCyan))
 	return renderBoxWithStyledTitle(titleStyle.Render(title), content, width, footer)
 }
 
@@ -27,7 +27,7 @@ func renderBoxWithStyledTitle(styledTitle string, content string, width int, foo
 		width = 6
 	}
 
-	borderColor := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	borderColor := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Top border.
 	titleWidth := lipgloss.Width(styledTitle)
@@ -64,7 +64,7 @@ func renderBoxWithStyledTitle(styledTitle string, content string, width int, foo
 
 // renderBottomBorder renders a bottom border, optionally embedding a footer hint.
 func renderBottomBorder(width int, footer string) string {
-	borderColor := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	borderColor := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	if footer == "" {
 		fill := width - 2
@@ -75,7 +75,7 @@ func renderBottomBorder(width int, footer string) string {
 	}
 
 	// ╰──── footer ─────╯
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	leadDashes := 4
 	maxFooterWidth := width - leadDashes - 5
 	if maxFooterWidth < 1 {

@@ -273,7 +273,7 @@ func TestErrorDisplay_RedStyledMessage(t *testing.T) {
 	m.err = &ipc.RPCError{Code: -1, Message: "event stream closed"}
 	view := m.View()
 	// Verify the error message content is styled red inside the box.
-	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+	redStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	// The message text itself should be red-styled inside the error box.
 	styledMsg := redStyle.Render("event stream closed")
 	if !strings.Contains(view, styledMsg) {
@@ -507,7 +507,7 @@ func TestRenderPipelineView_RunStatusColoredBlue(t *testing.T) {
 	view := renderPipelineView(run, steps, 80, 0, 40)
 
 	// The run status should stand out as the primary signal in the header.
-	blueStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiBlue))
+	blueStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxBlue))
 	blueRunning := blueStyle.Render("running")
 	if !strings.Contains(view, blueRunning) {
 		t.Errorf("expected run status 'running' to be styled blue, got:\n%s", view)
@@ -523,7 +523,7 @@ func TestRenderPipelineView_RunStatusColoredGreen(t *testing.T) {
 	}
 	view := renderPipelineView(run, steps, 80, 0, 40)
 
-	greenStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(ansiGreen))
+	greenStyle := lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(gruvboxGreen))
 	greenCompleted := greenStyle.Render("completed")
 	if !strings.Contains(view, greenCompleted) {
 		t.Errorf("expected run status 'completed' to be styled green, got:\n%s", view)
@@ -534,7 +534,7 @@ func TestRenderPipelineView_BranchStyledDim(t *testing.T) {
 	run := testRun()
 	view := renderPipelineView(run, run.Steps, 80, 0, 40)
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	dimBranch := dimStyle.Render(run.Branch)
 	if !strings.Contains(view, dimBranch) {
 		t.Errorf("expected branch name to be styled dim, got:\n%s", view)

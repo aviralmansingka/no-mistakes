@@ -44,13 +44,13 @@ func severityIcon(severity string) string {
 func riskLevelStyle(level string) lipgloss.Style {
 	switch strings.ToLower(level) {
 	case "low":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	case "medium":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 	case "high":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	default:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	}
 }
 
@@ -58,13 +58,13 @@ func riskLevelStyle(level string) lipgloss.Style {
 func severityStyle(severity string) lipgloss.Style {
 	switch severity {
 	case "error":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	case "warning":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiYellow))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxYellow))
 	case "info":
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue))
 	default:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	}
 }
 
@@ -175,11 +175,11 @@ func wrapIndentedText(text string, width, indent int) string {
 func logLineStyle(line string) lipgloss.Style {
 	switch {
 	case strings.HasPrefix(line, "PASS"):
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
 	case strings.HasPrefix(line, "FAIL"):
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiRed))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxRed))
 	default:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 	}
 }
 
@@ -263,11 +263,11 @@ func renderFindingsRange(f *findings, width int, cursor int, selected map[string
 		b.WriteString("\n")
 	}
 
-	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBrightBlack))
+	dimStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBrightBlack))
 
 	// Individual findings.
-	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiGreen))
-	blueStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(ansiBlue))
+	greenStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxGreen))
+	blueStyle := lipgloss.NewStyle().Foreground(lipgloss.Color(gruvboxBlue))
 	for idx := start; idx < end; idx++ {
 		item := f.Items[idx]
 		// Blank line between findings per DESIGN.md Gutter System.
